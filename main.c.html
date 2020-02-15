@@ -1,0 +1,215 @@
+<html>
+<head>
+<title>main.c</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #bbb529;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #6897bb;}
+.s4 { color: #808080;}
+.s5 { color: #cc7832; font-weight: bold;}
+.s6 { color: #cc7832;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+main.c</font>
+</center></td></tr></table>
+<pre><span class="s0">#include </span><span class="s2">&lt;stdio.h&gt;</span>
+<span class="s0">#include </span><span class="s2">&lt;math.h&gt;</span>
+<span class="s0">#include </span><span class="s2">&lt;time.h&gt;</span>
+<span class="s0">#include </span><span class="s2">&lt;stdlib.h&gt;</span>
+<span class="s0">#define </span><span class="s1">size </span><span class="s3">25</span>
+<span class="s0">#define </span><span class="s1">avg_size </span><span class="s3">50</span>
+
+<span class="s4">//Function to sum an array</span>
+<span class="s5">int </span><span class="s1">sum_array(</span><span class="s5">int </span><span class="s1">p[size][size]){</span>
+
+    <span class="s5">int </span><span class="s1">i</span><span class="s6">, </span><span class="s1">j</span><span class="s6">, </span><span class="s1">sum=</span><span class="s3">0</span><span class="s6">;</span>
+
+    <span class="s5">for </span><span class="s1">(j = </span><span class="s3">0</span><span class="s6">; </span><span class="s1">j &lt;= (size-</span><span class="s3">1</span><span class="s1">)</span><span class="s6">; </span><span class="s1">j++) {</span>
+
+        <span class="s5">for </span><span class="s1">(i = </span><span class="s3">0</span><span class="s6">; </span><span class="s1">i &lt;= (size-</span><span class="s3">1</span><span class="s1">)</span><span class="s6">; </span><span class="s1">i++) {</span>
+
+            sum = p[j][i] + sum<span class="s6">;</span>
+        <span class="s1">}</span>
+    }
+
+    <span class="s5">return </span><span class="s1">sum</span><span class="s6">;</span>
+<span class="s1">}</span>
+
+<span class="s4">//Recursive function to spread disease</span>
+<span class="s5">int </span><span class="s1">disease(</span><span class="s5">int </span><span class="s1">p[size][size]</span><span class="s6">, </span><span class="s5">int </span><span class="s1">dy</span><span class="s6">, </span><span class="s5">int </span><span class="s1">dx){</span>
+
+    <span class="s5">int </span><span class="s1">up = dy+</span><span class="s3">1</span><span class="s6">, </span><span class="s1">down = dy-</span><span class="s3">1</span><span class="s6">, </span><span class="s1">right = dx+</span><span class="s3">1</span><span class="s6">, </span><span class="s1">left = dx-</span><span class="s3">1</span><span class="s6">;</span>
+
+    <span class="s5">if</span><span class="s1">( ( p[up][dx] == </span><span class="s3">0 </span><span class="s1">) &amp;&amp; ( dy != size-</span><span class="s3">1 </span><span class="s1">) ) {</span>
+            p[up][dx] = <span class="s3">2</span><span class="s6">;</span>
+            <span class="s1">disease( p</span><span class="s6">, </span><span class="s1">up</span><span class="s6">, </span><span class="s1">dx )</span><span class="s6">;</span>
+    <span class="s1">}</span>
+
+    <span class="s5">if</span><span class="s1">( ( p[down][dx] == </span><span class="s3">0 </span><span class="s1">) &amp;&amp; ( dy != </span><span class="s3">0 </span><span class="s1">) ) {</span>
+            p[down][dx] = <span class="s3">2</span><span class="s6">;</span>
+            <span class="s1">disease( p</span><span class="s6">, </span><span class="s1">down</span><span class="s6">, </span><span class="s1">dx )</span><span class="s6">;</span>
+    <span class="s1">}</span>
+
+
+    <span class="s5">if</span><span class="s1">( ( p[dy][right] == </span><span class="s3">0 </span><span class="s1">) &amp;&amp; ( dx!= size-</span><span class="s3">1 </span><span class="s1">) ) {</span>
+            p[dy][right] = <span class="s3">2</span><span class="s6">;</span>
+            <span class="s1">disease( p</span><span class="s6">, </span><span class="s1">dy</span><span class="s6">, </span><span class="s1">right )</span><span class="s6">;</span>
+    <span class="s1">}</span>
+
+    <span class="s5">if</span><span class="s1">( ( p[dy][left] == </span><span class="s3">0 </span><span class="s1">) &amp;&amp; ( dx != </span><span class="s3">0 </span><span class="s1">) ) {</span>
+            p[dy][left] = <span class="s3">2</span><span class="s6">;</span>
+            <span class="s1">disease( p</span><span class="s6">, </span><span class="s1">dy</span><span class="s6">, </span><span class="s1">left )</span><span class="s6">;</span>
+    <span class="s1">}</span>
+    <span class="s5">return </span><span class="s1">EXIT_SUCCESS</span><span class="s6">;</span>
+<span class="s1">}</span>
+
+<span class="s4">//Function to average array</span>
+<span class="s5">double </span><span class="s1">mean_array(</span><span class="s5">double </span><span class="s1">k[avg_size]){</span>
+
+    <span class="s5">int </span><span class="s1">j</span><span class="s6">, </span><span class="s1">sum=</span><span class="s3">0</span><span class="s6">;</span>
+
+    <span class="s5">double </span><span class="s1">avg</span><span class="s6">;</span>
+
+    <span class="s5">for </span><span class="s1">( j = </span><span class="s3">0</span><span class="s6">; </span><span class="s1">j &lt; (avg_size)</span><span class="s6">; </span><span class="s1">j++ ) {</span>
+
+            sum = (<span class="s5">int</span><span class="s1">) k[j] + sum</span><span class="s6">;</span>
+    <span class="s1">}</span>
+
+    avg = (<span class="s5">double</span><span class="s1">) sum / avg_size</span><span class="s6">;</span>
+
+    <span class="s5">return </span><span class="s1">avg</span><span class="s6">;</span>
+<span class="s1">}</span>
+
+<span class="s5">double </span><span class="s1">SD_array(</span><span class="s5">double </span><span class="s1">k[avg_size]){</span>
+    <span class="s5">double </span><span class="s1">mean</span><span class="s6">, </span><span class="s1">SD = </span><span class="s3">0.0</span><span class="s6">;</span>
+
+    <span class="s5">int </span><span class="s1">i</span><span class="s6">;</span>
+
+    <span class="s1">mean = mean_array( k )</span><span class="s6">;</span>
+
+    <span class="s5">for</span><span class="s1">(i=</span><span class="s3">0</span><span class="s6">; </span><span class="s1">i&lt;avg_size</span><span class="s6">; </span><span class="s1">i++){</span>
+        SD += pow( k[i] - mean<span class="s6">, </span><span class="s3">2</span><span class="s1">)</span><span class="s6">;</span>
+    <span class="s1">}</span>
+
+    <span class="s5">return </span><span class="s1">sqrt( SD/avg_size )</span><span class="s6">;</span>
+<span class="s1">}</span>
+
+<span class="s5">int </span><span class="s1">main() {</span>
+
+    FILE * blob<span class="s6">;</span>
+    <span class="s1">blob = fopen(</span><span class="s2">&quot;Disease spread.xls&quot;</span><span class="s6">, </span><span class="s2">&quot;w&quot;</span><span class="s1">)</span><span class="s6">;</span>
+
+    <span class="s1">fprintf(blob</span><span class="s6">, </span><span class="s2">&quot;PERCENT IMMUNISED</span><span class="s6">\t</span><span class="s2">PERCENT DISEASED</span><span class="s6">\t</span><span class="s2">ERROR</span><span class="s6">\t</span><span class="s2">PERCENT OF VULNERABLE THAT CATCH DISEASE</span><span class="s6">\t</span><span class="s2">ERROR</span><span class="s6">\n</span><span class="s2">&quot;</span><span class="s1">)</span><span class="s6">;</span>
+
+    <span class="s5">int </span><span class="s1">k</span><span class="s6">;</span>
+
+    <span class="s4">//Arrays in which information is saved</span>
+    <span class="s5">double </span><span class="s1">avg_disease[avg_size] = {</span><span class="s3">0</span><span class="s1">}</span><span class="s6">;</span>
+    <span class="s5">double </span><span class="s1">num_vulnerable_before[avg_size] = {</span><span class="s3">0</span><span class="s1">}</span><span class="s6">;</span>
+    <span class="s5">double </span><span class="s1">num_vulnerable_after[avg_size] = {</span><span class="s3">0</span><span class="s1">}</span><span class="s6">;</span>
+
+    <span class="s5">double </span><span class="s1">avg_percent_diseased</span><span class="s6">;</span>
+
+    <span class="s4">//Number of vulnerable</span>
+    <span class="s5">double </span><span class="s1">avg_v_after</span><span class="s6">;</span>
+    <span class="s5">double </span><span class="s1">avg_v_before</span><span class="s6">;</span>
+
+    <span class="s4">//Percentage of vulnerable that catch disease</span>
+    <span class="s5">double </span><span class="s1">percentage_vulnerable_diseased</span><span class="s6">;</span>
+
+    <span class="s4">//Errors</span>
+    <span class="s5">double </span><span class="s1">error_d</span><span class="s6">;</span>
+    <span class="s5">double </span><span class="s1">error_v_after</span><span class="s6">;</span>
+    <span class="s5">double </span><span class="s1">error_percent_v</span><span class="s6">;</span>
+
+    <span class="s4">//Population size</span>
+    <span class="s5">double </span><span class="s1">pop_size = pow ( size</span><span class="s6">, </span><span class="s3">2 </span><span class="s1">)</span><span class="s6">;</span>
+
+    <span class="s4">//Indexing variables for random assignment</span>
+    <span class="s5">int </span><span class="s1">rx</span><span class="s6">, </span><span class="s1">ry</span><span class="s6">;</span>
+    <span class="s5">int </span><span class="s1">dx</span><span class="s6">, </span><span class="s1">dy</span><span class="s6">;</span>
+
+    <span class="s4">//Seed for rand()</span>
+    <span class="s1">srand( time(</span><span class="s3">0</span><span class="s1">) )</span><span class="s6">;</span>
+
+    <span class="s4">//Declare percentage of immunisation</span>
+    <span class="s5">double </span><span class="s1">percentage_immunised</span><span class="s6">;</span>
+    <span class="s4">//Number of immunised individuals</span>
+    <span class="s5">double </span><span class="s1">immun</span><span class="s6">;</span>
+
+    <span class="s5">int </span><span class="s1">counter</span><span class="s6">;</span>
+
+
+        <span class="s4">//Loop to do spread for all percentages of immunised</span>
+        <span class="s5">for </span><span class="s1">(percentage_immunised = </span><span class="s3">0.0</span><span class="s6">; </span><span class="s1">percentage_immunised &lt; </span><span class="s3">1</span><span class="s6">; </span><span class="s1">percentage_immunised += </span><span class="s3">0.001</span><span class="s1">) {</span>
+
+            <span class="s4">//Total population times percent immunised</span>
+            <span class="s1">immun = pop_size * percentage_immunised</span><span class="s6">;</span>
+
+            <span class="s4">//Loop to do disease a number of times to take average</span>
+            <span class="s5">for </span><span class="s1">( k = </span><span class="s3">0</span><span class="s6">; </span><span class="s1">k &lt; avg_size</span><span class="s6">; </span><span class="s1">k++ ) {</span>
+
+                <span class="s4">//Set population to be 0</span>
+                <span class="s5">int </span><span class="s1">p[size][size] = {</span><span class="s3">0</span><span class="s1">}</span><span class="s6">;</span>
+
+                <span class="s4">//Random x and y coordinate for immunisation to get certain number of immunised people</span>
+                <span class="s1">counter = </span><span class="s3">0</span><span class="s6">;</span>
+                <span class="s5">while </span><span class="s1">( counter &lt; immun ) {</span>
+                    rx = rand() % (size)<span class="s6">;</span>
+                    <span class="s1">ry = rand() % (size)</span><span class="s6">;</span>
+
+                    <span class="s5">if </span><span class="s1">(p[ry][rx] == </span><span class="s3">0</span><span class="s1">) {</span>
+                        p[ry][rx] = <span class="s3">1</span><span class="s6">;</span>
+                        <span class="s1">counter++</span><span class="s6">;</span>
+                    <span class="s1">}</span>
+                }
+
+                <span class="s4">//Set random value in array thats not immunised to disease</span>
+                <span class="s5">if </span><span class="s1">( counter != (</span><span class="s5">int</span><span class="s1">) pop_size ) {</span>
+                    <span class="s5">do </span><span class="s1">{</span>
+                        dx = rand() % (size)<span class="s6">;</span>
+                        <span class="s1">dy = rand() % (size)</span><span class="s6">;</span>
+                    <span class="s1">} </span><span class="s5">while </span><span class="s1">(p[dy][dx] == </span><span class="s3">1</span><span class="s1">)</span><span class="s6">;</span>
+                <span class="s1">}</span>
+                p[dy][dx] = <span class="s3">2</span><span class="s6">;</span>
+
+
+                <span class="s4">//Disease spread function applied to array</span>
+                <span class="s1">disease( p</span><span class="s6">, </span><span class="s1">dy</span><span class="s6">, </span><span class="s1">dx )</span><span class="s6">;</span>
+
+                <span class="s4">//working out number of diseased, and vulnerables from sum function</span>
+                <span class="s1">avg_disease[k] = ( (</span><span class="s5">double</span><span class="s1">) sum_array(p) - (</span><span class="s5">double</span><span class="s1">) counter ) * (</span><span class="s3">0.5</span><span class="s1">)</span><span class="s6">;</span>
+                <span class="s1">num_vulnerable_before[k] = pop_size - </span><span class="s3">1 </span><span class="s1">- counter</span><span class="s6">;</span>
+                <span class="s1">num_vulnerable_after[k] = pop_size - avg_disease[k] - counter</span><span class="s6">;</span>
+
+            <span class="s1">}</span>
+            <span class="s4">//Percentage of array diseased</span>
+            <span class="s1">avg_percent_diseased = </span><span class="s3">100 </span><span class="s1">* mean_array( avg_disease ) / pop_size</span><span class="s6">;</span>
+
+            <span class="s4">//Working out percentage of vulnerable</span>
+            <span class="s1">avg_v_after = mean_array( num_vulnerable_after )</span><span class="s6">;</span>
+            <span class="s1">avg_v_before = mean_array( num_vulnerable_before )</span><span class="s6">;</span>
+            <span class="s1">percentage_vulnerable_diseased = </span><span class="s3">100 </span><span class="s1">* ( </span><span class="s3">1 </span><span class="s1">- ( avg_v_after  / avg_v_before ) )</span><span class="s6">;</span>
+
+            <span class="s4">//Working out error for disease</span>
+            <span class="s1">error_d = </span><span class="s3">100 </span><span class="s1">* ( SD_array( avg_disease ) / sqrt( avg_size - </span><span class="s3">1 </span><span class="s1">) ) / pop_size</span><span class="s6">;</span>
+
+            <span class="s4">//Working out error for Vulnerable percent</span>
+            <span class="s1">error_v_after = SD_array( num_vulnerable_after ) / sqrt( avg_size - </span><span class="s3">1 </span><span class="s1">)</span><span class="s6">;</span>
+            <span class="s1">error_percent_v = </span><span class="s3">100 </span><span class="s1">* ( error_v_after / avg_v_before )</span><span class="s6">;</span>
+
+
+            <span class="s4">//Printing out Average Value</span>
+            <span class="s1">fprintf(blob</span><span class="s6">, </span><span class="s2">&quot;%g</span><span class="s6">\t</span><span class="s2">%g</span><span class="s6">\t</span><span class="s2">%g</span><span class="s6">\t</span><span class="s2">%g</span><span class="s6">\t</span><span class="s2">%g</span><span class="s6">\n</span><span class="s2">&quot;</span><span class="s6">, </span><span class="s3">100</span><span class="s1">*percentage_immunised</span><span class="s6">, </span><span class="s1">avg_percent_diseased</span><span class="s6">, </span><span class="s1">error_d</span><span class="s6">, </span><span class="s1">percentage_vulnerable_diseased</span><span class="s6">, </span><span class="s1">error_percent_v)</span><span class="s6">;</span>
+        <span class="s1">}</span>
+
+   <span class="s5">return </span><span class="s3">0</span><span class="s6">;</span>
+<span class="s1">}</span></pre>
+</body>
+</html>
